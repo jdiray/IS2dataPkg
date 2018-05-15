@@ -100,7 +100,7 @@ mats <- mats[ mats$folder %in% studies, ]
 # gene symbol.
 mx <- lapply(mats$name, gl$getGEMatrix, 
              outputType = "normalized",
-             annotation = "latest", 
+             annotation = "default", 
              reload = TRUE)
 ```
 

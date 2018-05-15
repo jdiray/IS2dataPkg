@@ -191,7 +191,7 @@ mats &lt;- mats[ mats$folder %in% studies, ]
 # gene symbol.
 mx &lt;- lapply(mats$name, gl$getGEMatrix, 
              outputType = &quot;normalized&quot;,
-             annotation = &quot;latest&quot;, 
+             annotation = &quot;default&quot;, 
              reload = TRUE)</code></pre>
 <pre><code>## Downloading matrix..</code></pre>
 <pre><code>## Downloading Features..</code></pre>

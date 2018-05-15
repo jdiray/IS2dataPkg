@@ -6,12 +6,12 @@ Author: Evan Henrich
 Maintainer: Evan henrich <ehenrich@fredhutch.org>
 Description: The pre-processing scripts extract and transform data from ImmuneSpace in preparation for various transcriptomic analyses.
 License: GPL-2
-DataVersion: 0.1.0
+DataVersion: 0.1.1
 RoxygenNote: 6.0.1
 Suggests: knitr,
     rmarkdown
 VignetteBuilder: knitr
-Date: Tue May 15 13:47:11 2018
+Date: Tue May 15 14:52:34 2018
 Imports: 
     ImmuneSpaceR,
     Biobase,
