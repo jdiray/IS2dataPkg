@@ -1,0 +1,10 @@
+Package: IS2dataPkg
+Type: Package
+Title: Contains pre-processing scripts and analysis-ready data for ImmuneSignatures2 project
+Version: 1.0
+Date: 2018-05-15
+Author: Evan Henrich
+Maintainer: Evan henrich <ehenrich@fredhutch.org>
+Description: The pre-processing scripts extract and transform data from ImmuneSpace in preparation for various transcriptomic analyses.
+License: What license is it under?
+DataVersion: 0.1.0

@@ -1,0 +1,12 @@
+Edit the DESCRIPTION file to reflect the contents of your package.
+Optionally put your raw data under 'inst/extdata/'.
+If the datasets are large, they may reside elsewhere outside the package.
+Copy .R files that do preprocessing of your data to 'data-raw'
+Edit 'data-raw/datasets.R' to source your R files.
+Document your data sets using roxygen markup (see comments in datasets.R)
+
+NOTES
+If your code relies on other packages, add those to the @import tag of the roxygen markup.
+The R object names you wish to make available (and document) in the package must match
+the roxygen @name tags and must be called out by keepDataObjects() in datasets.R
+(listing them in objectsToKeep in datasets.R is sufficient).
