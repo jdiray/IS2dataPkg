@@ -23,7 +23,7 @@ library(UpdateAnno) # devtools::install_github("rglab/UpdateAnno")
 
 Data other than gene expression is easy to get with our current API methods.
 
-```{r non-gene-expression-data}
+```{r extract-hai-data}
 con <- CreateConnection("IS2") # virtual study specific
 con # print to see list of available data sets
 hai <- con$getDataset("hai") # example with hai
@@ -32,7 +32,7 @@ head(hai)
 
 Getting gene expression data is a bit more complicated and we are working on creating a cleaner way of doing this within the study-specific connection.  For now, here is a workaround.
 
-```{r gene-expression-data}
+```{r extract-ge-data}
 # Use global connection to all studies for accessing select gene expression matrices
 # SDY215 and SDY270 not included b/c lack GE data per Patrick @ ImmPort
 gl <- CreateConnection("") 
@@ -41,24 +41,16 @@ studies <- c("SDY212, SDY180, SDY80, SDY61, SDY269, SDY522, SDY404, SDY400, SDY2
 studies <- strsplit(studies, ", ")[[1]]
 mats <- mats[ mats$folder %in% studies, ]
 
-# Option 1: 
-# Summarized by gene symbol with latest annotation and using the average of 
-# all probes associated with a gene as the summary expression. The method combines
-# expressionSets for you by 
-sumMx <- gl$getGEMatrix(matrixName = mats$name, 
-                        outputType = "summary", 
-                        annotation = "latest")
-sumEset <- Biobase::exprs(sumMx)
-
-# Option 2:
 # Pull probe level data with annotation from when it was deposited with ImmPort
 # and update annotation here as well as summarize by maximum probe value per 
 # gene symbol.
 mx <- lapply(mats$name, gl$getGEMatrix, 
              outputType = "normalized",
-             annotation = "default", 
+             annotation = "latest", 
              reload = TRUE)
+```
 
+```{r normalize-ge-data}
 mxEdit <- lapply(mx, function(x){
     # calc probe average without log transform
     exprs <- data.frame(Biobase::exprs(x))
@@ -99,13 +91,5 @@ Subsetting the hai and gene expression datasets for subjects that only have both
 comboSubs <- intersect(ptid, hai$participant_id)
 hai <- hai[ hai$participant_id %in% comboSubs, ]
 exprs <- allMx[ , ptid %in% comboSubs ]
-```
-
-Write the two datasets to objects in a target filepath
-
-```{r write-objects-to-rda}
-dirPath <- "/home/ehenrich/R/IS2/"
-save(hai, file = paste0(dirPath, "/IS2_hai.rda"))
-save(exprs, file = paste0(dirPath, "/IS2_exprs.rda")) # ~ 80 MB
 ```
 
